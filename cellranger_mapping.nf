@@ -39,6 +39,8 @@ process runCellRanger {
 
 // Workflow definition
 workflow {
+
+    println "Starting the mapping pipeline"
     samples = Channel
         .fromPath(params.samples_csv)
         .splitCsv(header: true)
