@@ -1,0 +1,41 @@
+#!/bin/bash
+
+#PBS -l walltime=24:00:00
+#PBS -l select=1:ncpus=8:mem=48gb
+#PBS -N scdownstream_analysis
+#PBS -o scdownstream_analysis.out
+#PBS -e scdownstream_analysis.err
+
+module load Java/11.0.20
+
+export NXF_OPTS='-Xms1g -Xmx4g'
+export JAVA_HOME=$(dirname $(dirname $(which java)))
+export PATH=$JAVA_HOME/bin:$PATH
+export SINGULARITY_CACHEDIR="/rds/general/user/pr422/ephemeral/singularity_cache"
+
+# working directory
+workDir="/rds/general/user/pr422/home/PhD/nfcore/scdownstream/tmp"
+mkdir -p "$workDir"
+
+# Define inputs
+samplesheet="/rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/DATA/DATA/epilep/mouse/hippo/input_for_scdownstream_h5adfiles/csv_files/samplesheet_S2R_S9R_S17R.csv"
+out="/rds/general/user/pr422/home/PhD/nfcore/scdownstream/output_full_pipeline"
+config_file="/rds/general/user/pr422/home/PhD/nfcore/scdownstream/config/resources.config"
+
+# Run nf-core/scdownstream pipeline
+/rds/general/user/pr422/home/PhD/nfcore/bin/nextflow run nf-core/scdownstream \
+  -r dev \
+  -profile imperial \
+  -c "$config_file" \
+  --input "$samplesheet" \
+  --outdir "$out" \
+  --ambient_removal decontx \
+  --doublet_detection doubletdetection \
+  --clustering_resolutions "0.5,1.0" \
+  --integration_methods "scvi" \
+  --integration_hvgs 10000 \
+  --cluster_per_label \
+  --cluster_global \
+  --celltypist_model Mouse_Whole_Brain \
+  --memory_scale 1 \
+  --skip_liana true 
