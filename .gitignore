@@ -1,6 +1,0 @@
-# Ignore everything by default
-*
-
-# But track the scripts folder and .gitignore file
-!.gitignore
-!/scripts/
