@@ -6,7 +6,7 @@
 
 # Load or activate your conda environment (adjust to your system)
 eval "$(~/anaconda3/bin/conda shell.bash hook)" 
-source activate scanvi_update_env  
+source activate scanvi_update_env 
 
 # Make sure we are in the directory from which you submitted the job
 cd /rds/general/user/pr422/home/PhD/scanvi_tutorial/human_epilep_scanvi_test/scripts
