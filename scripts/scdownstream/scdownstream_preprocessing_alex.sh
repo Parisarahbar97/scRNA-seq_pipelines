@@ -36,3 +36,18 @@ nextflow run nf-core/scdownstream \
   --doublet_detection scrublet \
   --skip_liana true \
   --save_intermediates false 
+
+
+  # # Run the pipeline with resume capability
+config_file="/rds/general/user/$USER/ephemeral/PROJECTS/PARISA/scRNA-seq_pipelines/alex_test_gpu.config"
+nextflow run nf-core/scdownstream \
+  -profile gpu \
+  -r dev \
+  -c $config_file \
+  --input "$samplesheet" \
+  --outdir "$out" \
+  -w /rds/general/user/${USER}/ephemeral/NEXTFLOW/ \
+  --ambient_removal cellbender \
+  --doublet_detection scrublet \
+  --skip_liana true \
+  --save_intermediates false 
