@@ -1,2 +1,3 @@
 .nextflow*
 _bin/
+.nextflow/
