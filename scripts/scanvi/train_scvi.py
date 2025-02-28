@@ -17,18 +17,16 @@ import scvi
 import os
 
 # -------------------------------------------------------------------
-# 1. PATHS AND SETTINGS
+# 1. PATHS
 # -------------------------------------------------------------------
 input_file = "/rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa/scanvi_output/Combined_symbol_query_concat_2000hvg.h5ad"
 out_dir = "/rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa/scanvi_output"
 os.makedirs(out_dir, exist_ok=True)
 
-# We'll store the final integrated AnnData here:
+# final integrated AnnData path:
 output_h5ad = os.path.join(out_dir, "scvi_integrated_2000hvg.h5ad")
 
-# We'll store the UMAP plot here:
-# By setting sc.settings.figdir, the "save" argument in sc.pl.umap
-# will generate a file in that directory
+# UMAP plot path:
 sc.settings.figdir = out_dir
 umap_plot_file_suffix = "_scvi_umap_integration_2.png"
 
@@ -54,7 +52,7 @@ print("Initializing SCVI model (n_latent=30, n_layers=2)...")
 scvi_model = scvi.model.SCVI(adata, n_latent=30, n_layers=2)
 
 print("Training scVI model for up to 400 epochs...")
-scvi_model.train(max_epochs=500)
+scvi_model.train(max_epochs=50)
 
 # Get the scVI latent representation
 adata.obsm["X_scVI"] = scvi_model.get_latent_representation()
@@ -74,8 +72,8 @@ sc.tl.umap(adata, min_dist=0.3)
 print(f"Saving UMAP plot to directory: {out_dir}")
 sc.pl.umap(
     adata,
-    color=["dataset"],  # color by reference vs. query
-    save=umap_plot_file_suffix,  # will produce a PNG in out_dir
+    color=["dataset"],  
+    save=umap_plot_file_suffix, 
     show=False
 )
 
