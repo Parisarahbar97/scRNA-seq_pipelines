@@ -5,7 +5,7 @@
 #PBS -j oe 
 
 # Load or activate your conda environment (adjust to your system)
-eval "$(~/anaconda3/bin/conda shell.bash hook)" 
+eval "$(~/anaconda3/bin/conda shell.bash hook)"
 source activate scanvi_update_env  
 
 # Make sure we are in the directory from which you submitted the job
