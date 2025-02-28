@@ -4,7 +4,6 @@
 #PBS -l walltime=12:00:00
 #PBS -j oe 
 
-# Load or activate the conda environment
 eval "$(~/anaconda3/bin/conda shell.bash hook)"
 source activate scanvi_update_env  
 
