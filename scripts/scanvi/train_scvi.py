@@ -4,11 +4,10 @@
 #PBS -l walltime=12:00:00
 #PBS -j oe 
 
-# Load or activate your conda environment (adjust to your system)
+# Load or activate the conda environment
 eval "$(~/anaconda3/bin/conda shell.bash hook)"
 source activate scanvi_update_env  
 
-# Make sure we are in the directory from which you submitted the job
 cd /rds/general/user/pr422/home/PhD/scanvi_tutorial/human_epilep_scanvi_test/scripts
 
 python <<EOF
