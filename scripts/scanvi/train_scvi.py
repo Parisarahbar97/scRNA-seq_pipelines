@@ -73,7 +73,7 @@ print(f"Saving UMAP plot to directory: {out_dir}")
 sc.pl.umap(
     adata,
     color=["dataset"],  
-    save=umap_plot_file_suffix, 
+    save=umap_plot_file_suffix,
     show=False
 )
 
