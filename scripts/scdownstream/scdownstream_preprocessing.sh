@@ -25,7 +25,7 @@ config_file="/rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Paris
 
 # Run the pipeline with resume capability
 nextflow run nf-core/scdownstream \
-  -profile imperial \
+  -profile imperial > /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/output_preprocess/run2/test.log \
   -c "$config_file" \
   --input "$samplesheet" \
   --outdir "$out" \
