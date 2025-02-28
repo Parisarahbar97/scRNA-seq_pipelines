@@ -51,7 +51,7 @@ scvi.model.SCVI.setup_anndata(adata, batch_key="dataset")
 print("Initializing SCVI model (n_latent=30, n_layers=2)...")
 scvi_model = scvi.model.SCVI(adata, n_latent=30, n_layers=2)
 
-print("Training scVI model for up to 400 epochs...")
+print("Training scVI model for up to 50 epochs...")
 scvi_model.train(max_epochs=50)
 
 # Get the scVI latent representation
