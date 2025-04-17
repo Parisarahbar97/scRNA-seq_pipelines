@@ -9,10 +9,10 @@ def pseudo_bulk(adata: sc.AnnData,
                 celltype_column: str,
                 sample_column: str) -> dict:
     """
-    Pseudobulk a Scanpy AnnData by summing counts for each gene,
+    Pseudobulk a Scanpy AnnData from scdownstream pipeline by summing counts for each gene,
     per sample, within each cell type.
     """
-    # 1) Grab the count matrix: raw if available, otherwise X
+    # 1) pull the count matrix: raw if available, otherwise X
     if adata.raw is not None and adata.raw.X is not None:
         X = adata.raw.X
         genes = adata.raw.var_names
