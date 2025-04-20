@@ -20,7 +20,7 @@ def pseudo_bulk(adata: sc.AnnData,
         X = adata.X
         genes = adata.var_names
 
-    # 2) To dense
+    # 2) To dense (ease of use in pandas/No data change)
     if sparse.issparse(X):
         X = X.toarray()
 
