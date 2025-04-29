@@ -27,8 +27,6 @@ seurat_obj[["umap"]] <- CreateDimReducObject(embeddings = umap_coords, key = "UM
 seurat_obj <- NormalizeData(seurat_obj)
 
 
-
-
 library(ggplot2)
 library(ggrepel)
 library(dplyr)
