@@ -1,3 +1,8 @@
+export TMPDIR="/rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/tmp"
+mkdir -p "$TMPDIR"
+chmod 777 "$TMPDIR"
+
+
 nextflow run nf-core/scdownstream \
     -profile imperial \
     -c /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scRNA-seq_pipelines/scripts/scdownstream/test_full.config \
