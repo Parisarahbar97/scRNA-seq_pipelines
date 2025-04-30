@@ -1,0 +1,18 @@
+nextflow run nf-core/scdownstream \
+    -profile imperial \
+    -c /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scRNA-seq_pipelines/scripts/scdownstream/test_full.config \
+    --input /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/input/samplesheet_converted_remapped_h5ad_epilep.csv \
+    --outdir /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/output/celltypist \
+    -w /rds/general/user/${USER}/ephemeral/NEXTFLOW/ \
+    --ambient_removal cellbender \
+    --doublet_detection scrublet \
+    --clustering_resolutions "0.5,1.0" \
+    --integration_methods "scvi" \
+    --integration_hvgs 10000 \
+    --cluster_per_label \
+    --cluster_global \
+    --celltypist_model "Human_AdultAged_Hippocampus" \
+    --memory_scale 1 \
+    --skip_liana true \
+    --save_intermediates false \
+    > /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/output/celltypist/test.log 2>&1
