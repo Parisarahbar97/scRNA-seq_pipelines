@@ -5,10 +5,10 @@ chmod 777 "$TMPDIR"
 
 nextflow run nf-core/scdownstream \
     -profile imperial \
-    -c /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scRNA-seq_pipelines/scripts/scdownstream/test_full.config \
-    --input /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/input/samplesheet_converted_remapped_h5ad_epilep.csv \
+    -c /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scRNA-seq_pipelines/scripts/scdownstream/test.config \
+    --input --input /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/h5ad_converted/samplesheet_converted.csv \
     --outdir /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/output/celltypist \
-    -w /rds/general/user/${USER}/ephemeral/NEXTFLOW/ \
+    -w /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/NEXTFLOW/ \
     --ambient_removal cellbender \
     --doublet_detection scrublet \
     --clustering_resolutions "0.5,1.0" \
@@ -21,3 +21,9 @@ nextflow run nf-core/scdownstream \
     --skip_liana true \
     --save_intermediates false \
     > /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/output/celltypist/test.log 2>&1
+
+
+
+    rm -rf /rds/general/user/pr422/ephemeral/NEXTFLOW/*
+    cd /rds/general/user/pr422/ephemeral/NEXTFLOW/c7/22a2f9a0b1ab40c25fd56b07222603
+    cat .command.err 
