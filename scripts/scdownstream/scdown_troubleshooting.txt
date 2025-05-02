@@ -1,4 +1,4 @@
-export TMPDIR="/rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/tmp"
+export TMPDIR="/rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/tmp"
 mkdir -p "$TMPDIR"
 chmod 777 "$TMPDIR"
 
@@ -6,9 +6,9 @@ chmod 777 "$TMPDIR"
 nextflow run nf-core/scdownstream \
     -profile imperial \
     -c /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scRNA-seq_pipelines/scripts/scdownstream/test.config \
-    --input --input /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/h5ad_converted/samplesheet_converted.csv \
-    --outdir /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/output/celltypist \
-    -w /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/NEXTFLOW/ \
+    --input /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdownstream_final/input/samplesheet_h5_files.csv \
+    --outdir /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdownstream_final/output/run1_with_h5_files \
+    -w /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/NEXTFLOW/ \
     --ambient_removal cellbender \
     --doublet_detection scrublet \
     --clustering_resolutions "0.5,1.0" \
@@ -20,10 +20,52 @@ nextflow run nf-core/scdownstream \
     --memory_scale 1 \
     --skip_liana true \
     --save_intermediates false \
-    > /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdown_old_samples/output/celltypist/test.log 2>&1
+    > /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdownstream_final/output/run1_with_h5_files/test.log 2>&1
 
 
 
     rm -rf /rds/general/user/pr422/ephemeral/NEXTFLOW/*
     cd /rds/general/user/pr422/ephemeral/NEXTFLOW/c7/22a2f9a0b1ab40c25fd56b07222603
-    cat .command.err 
+
+
+
+Checklist of Potential Causes of join mismatch error and What to Check:
+1.	Mismatch in barcodes between filtered and raw matrices
+→ Make sure all filtered barcodes exist in the raw matrix.
+2.	Inconsistent sample naming across files and samplesheet
+→ Ensure consistent sample names (e.g., S10A, not S10A_mapped).
+3.	Corrupted or partial files (e.g., truncated .h5 files)
+→ Make sure both .h5 files are readable and complete.
+4.	Files contain different gene identifiers
+→ Check if gene names are consistent
+
+script :
+import os
+import scanpy as sc
+
+base_dir = "/rds/general/user/pr422/projects/puklandmarkproject/ephemeral/alex/mapping_outs"
+sample_dirs = [d for d in os.listdir(base_dir) if d.endswith("_mapped")]
+
+for sample_dir in sorted(sample_dirs):
+    sample = sample_dir.replace("_mapped", "")
+    filtered_h5 = os.path.join(base_dir, sample_dir, "outs", "filtered_feature_bc_matrix.h5")
+    raw_h5 = os.path.join(base_dir, sample_dir, "outs", "raw_feature_bc_matrix.h5")
+
+    if not (os.path.exists(filtered_h5) and os.path.exists(raw_h5)):
+        print(f"❌ Missing files for {sample}")
+        continue
+
+    try:
+        adata_filtered = sc.read_10x_h5(filtered_h5)
+        adata_raw = sc.read_10x_h5(raw_h5)
+
+        filtered_barcodes = set(adata_filtered.obs_names)
+        raw_barcodes = set(adata_raw.obs_names)
+
+        if not filtered_barcodes.issubset(raw_barcodes):
+            print(f"❌ Barcode mismatch in {sample}: {len(filtered_barcodes - raw_barcodes)} barcodes not in raw")
+        else:
+            print(f"✅ {sample}: barcodes match")
+
+    except Exception as e:
+        print(f"⚠️ Error reading {sample}: {e}")
