@@ -57,28 +57,42 @@ print(cell_counts)
 # Name: count, dtype: int64
 
 # Generating .png and.pdf plots/ final script :
+# Add cell count labels on top of each bar
+# Format the figure for publication (NatGen):
+# - Width < 7 inches
+# - Font size max 7 pt
+
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Load the metadata
-metadata_path = "/rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/ephemeral_files/Parisa_scdownstream/output_full/run3_celltypist_new_model/finalized/merged_metadata.csv"
-df = pd.read_csv(metadata_path)
+# Load the metadata CSV
+metadata = pd.read_csv("/rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/ephemeral_files/Parisa_scdownstream/output_full/run3_celltypist_new_model/finalized/merged_metadata.csv")  # Update the path as needed
 
-# Count number of cells per sample
-cell_counts = df['sample'].value_counts().sort_index()
+# Count cells per sample
+cell_counts = metadata['sample'].value_counts().sort_index()
 
-# Plot
-plt.figure(figsize=(14, 6))
-bars = plt.bar(cell_counts.index, cell_counts.values)
-plt.xticks(rotation=90, ha='center')  
-plt.ylabel("Number of cells")
-plt.xlabel("Sample pool")
-plt.title("Number of cells per sample (from finalized metadata)")
+# Set up the figure size (in inches)
+fig, ax = plt.subplots(figsize=(6.8, 4))  # <7 inch width
+
+# Set seaborn style
+sns.set(style="whitegrid", font_scale=0.7)  # ~7pt font
+
+# Create barplot
+bars = sns.barplot(x=cell_counts.index, y=cell_counts.values, color="steelblue", edgecolor="black", ax=ax)
+
+# Annotate bars with the cell count
+for i, val in enumerate(cell_counts.values):
+    ax.text(i, val + max(cell_counts.values) * 0.01, f'{val:,}', 
+            ha='center', va='bottom', fontsize=6)
+
+# Rotate x-axis labels
+ax.set_xticklabels(ax.get_xticklabels(), rotation=90, fontsize=6)
+ax.set_ylabel("Number of Cells", fontsize=7)
+ax.set_xlabel("Sample", fontsize=7)
+ax.tick_params(axis='y', labelsize=6)
+
+# Tight layout for better spacing
 plt.tight_layout()
-plt.show()
-
-# Save as PNG and PDF
-plt.savefig("/rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/ephemeral_files/Parisa_scdownstream/output_full/run3_celltypist_new_model/finalized/cell_counts_per_sample.png", dpi=300)
-plt.savefig("/rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/ephemeral_files/Parisa_scdownstream/output_full/run3_celltypist_new_model/finalized/cell_counts_per_sample.pdf")  
-
-plt.show()
+plt.savefig("/rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/ephemeral_files/Parisa_scdownstream/output_full/run3_celltypist_new_model/finalized/cell_counts_per_sample.pdf", format='pdf', dpi=300)
+plt.show() 
