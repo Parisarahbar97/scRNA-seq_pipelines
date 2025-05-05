@@ -7,7 +7,7 @@ nextflow run nf-core/scdownstream \
     -profile imperial \
     -c /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scRNA-seq_pipelines/scripts/scdownstream/test.config \
     --input /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdownstream_final/input/samplesheet_h5_files.csv \
-    --outdir /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdownstream_final/output/run1_with_h5_files \
+    --outdir /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdownstream_final/output/run2_save_intermediates \
     -w /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/NEXTFLOW/ \
     --ambient_removal cellbender \
     --doublet_detection scrublet \
@@ -19,12 +19,13 @@ nextflow run nf-core/scdownstream \
     --celltypist_model "Human_AdultAged_Hippocampus" \
     --memory_scale 1 \
     --skip_liana true \
-    --save_intermediates false \
-    > /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdownstream_final/output/run1_with_h5_files/test.log 2>&1
+    --save_intermediates true \
+    > /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdownstream_final/output/run2_save_intermediates/test.log 2>&1
 
 
 
     rm -rf /rds/general/user/pr422/ephemeral/NEXTFLOW/*
+    rm -rf /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/NEXTFLOW/*
     cd /rds/general/user/pr422/ephemeral/NEXTFLOW/c7/22a2f9a0b1ab40c25fd56b07222603
 
 
