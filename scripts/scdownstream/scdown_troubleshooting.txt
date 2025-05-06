@@ -3,7 +3,7 @@ mkdir -p "$TMPDIR"
 chmod 777 "$TMPDIR"
 
 
-nextflow run nf-core/scdownstream -r dev \
+nextflow run nf-core/scdownstream -r e565721df8  \
     -profile imperial \
     -c /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scRNA-seq_pipelines/scripts/scdownstream/test.config \
     --input /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdownstream_final/input/samplesheet_h5_files.csv \
@@ -20,7 +20,11 @@ nextflow run nf-core/scdownstream -r dev \
     --memory_scale 1 \
     --skip_liana true \
     --save_intermediates false \
+    --unify_adata true
     > /rds/general/user/pr422/projects/puklandmarkproject/ephemeral/Parisa_scdownstream/scdownstream_final/output/run3_new_singularity_folder/test.log 2>&1
+
+
+
 
 
 
