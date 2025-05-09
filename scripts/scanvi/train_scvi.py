@@ -1,7 +1,7 @@
 #!/bin/bash
 #PBS -N scvi_train    
 #PBS -l select=1:ncpus=40:mem=480gb
-#PBS -l walltime=12:00:00
+#PBS -l walltime=:00:00
 #PBS -j oe 
 
 eval "$(~/anaconda3/bin/conda shell.bash hook)"
