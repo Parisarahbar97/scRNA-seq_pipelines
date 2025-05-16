@@ -47,7 +47,7 @@ nextflow run nf-core/scdownstream \
   --reference_model /rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/ephemeral_files/Parisa_2/Parisa/train_ref_scdown/scanvi_model/model.pt \
   --reference_model_type scanvi \
   --integration_methods scanvi \
-  --base_adata /rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/ephemeral_files/Parisa_2/Parisa/train_ref_scdown/scanvi_model/adata.h5ad \
+  --base_adata /rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/ephemeral_files/Parisa_2/Parisa/train_ref_scdown/scanvi_model/adata_with_label.h5ad \
   --base_label_col cell_type \
   --cluster_global \
   --cluster_per_label \
