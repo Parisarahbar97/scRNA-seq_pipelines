@@ -1,5 +1,5 @@
 NXF_LOG_FILE="/rds/general/user/pr422/ephemeral/NEXTFLOW_EQTL/nextflow.log"
-
+export NXF_LOG_FILE
 
 outdir="/rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/parisa_eqtl/eQTL_output"
 gds_file="/rds/general/user/pr422/projects/puklandmarkproject/ephemeral/alex/sc_eQTL_runs/BONN_post_imputation_QC.gds"
