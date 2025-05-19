@@ -15,7 +15,7 @@ print("  obs columns:", list(adata.obs.columns))
 print("  var columns:", list(adata.var.columns))
 print("  Example var head:\n", adata.var.head())
 
-# ---- 3. Set gene symbols from 'Gene' column as feature names ----
+# ---- 3. Set gene symbols from 'Gene' column as feature names ---
 if "Gene" in adata.var.columns:
     print("Setting .var_names to 'Gene'")
     adata.var_names = adata.var["Gene"]
