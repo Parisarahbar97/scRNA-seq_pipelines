@@ -6,6 +6,7 @@ gds_file="/rds/general/user/pr422/projects/puklandmarkproject/ephemeral/alex/sc_
 single_cell_file="/rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/parisa_eqtl/matched_seuratobj/matched_seurat_demuxlet.rds"
 
 nextflow run johnsonlab-ic/sc-eQTL-pipeline \
+-latest \
 -profile imperial \
 --outdir $outdir \
 --gds_file $gds_file \
