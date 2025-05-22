@@ -30,7 +30,7 @@ head -n 5 "$OUTPUT_CSV"
 samplesheet="/rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/parisa_scdownstream/input/samplesheet_with_filtering_parameters.csv"
 out="/rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/parisa_scdownstream/output/with_scanvi_parameters"
 config_file="/rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/scRNA-seq_pipelines/scripts/scdownstream/scdown_scanvi.config"
-
+MODEL_DIR="/rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/parisa_scdownstream/scanvi_output_for_scdown/model"
 
 export NXF_LOG_FILE=/rds/general/user/pr422/ephemeral/NEXTFLOW/scdownstream.log
 
@@ -44,10 +44,10 @@ nextflow run nf-core/scdownstream \
   -w /rds/general/user/pr422/ephemeral/NEXTFLOW/ \
   --ambient_removal cellbender \
   --doublet_detection scrublet \
-  --reference_model /rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/ephemeral_files/Parisa_2/Parisa/train_ref_scdown/scanvi_model/model.pt \
+  --reference_model "$MODEL_DIR/model.pt" \
   --reference_model_type scanvi \
   --integration_methods scanvi \
-  --base_adata /rds/general/user/pr422/projects/puklandmarkproject/live/Users/Parisa/ephemeral_files/Parisa_2/Parisa/train_ref_scdown/scanvi_model/adata_with_label.h5ad \
+  --base_adata --base_adata "$MODEL_DIR/adata.h5ad" \
   --base_label_col cell_type \
   --cluster_global \
   --cluster_per_label \
