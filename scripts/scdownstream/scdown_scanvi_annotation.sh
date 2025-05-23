@@ -47,7 +47,7 @@ nextflow run nf-core/scdownstream \
   --reference_model "$MODEL_DIR/model.pt" \
   --reference_model_type scanvi \
   --integration_methods scanvi \
-  --base_adata --base_adata "$MODEL_DIR/adata.h5ad" \
+  --base_adata "$MODEL_DIR/adata.h5ad" \
   --base_label_col cell_type \
   --cluster_global \
   --cluster_per_label \
